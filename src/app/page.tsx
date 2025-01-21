@@ -1,9 +1,12 @@
 import React from 'react'
-
-const Home = () => {
+import Home from './(landingpage)/home/page'
+const Index = () => {
   return (
-    <div>Home</div>
+    <section >
+      <Home/>
+  
+    </section>
   )
 }
 
-export default Home
+export default Index
