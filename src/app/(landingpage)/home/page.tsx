@@ -3,11 +3,12 @@
 import React from "react";
 import Header from "@/components/Header";
 import Image from "next/image";
-import femaleStudent from "../../../../assets/images/femalStudent.jpg";
-import maleStudent from "../../../../assets/images/maleStudent.jpg";
+import femaleStudent from "@/assets/images/femalStudent.jpg";
+import maleStudent from "@/assets/images/maleStudent.jpg";
 import Achievement from "@/components/achievement";
 import { Star } from "lucide-react"; 
 import StudentReview from "@/components/review";
+
 
 const Home = () => {
   return (

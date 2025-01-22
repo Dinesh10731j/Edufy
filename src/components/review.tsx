@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Star, User } from "lucide-react";
-import { reviews } from "../../utils/reviews";
+import { reviews } from "../utils/reviews";
 
 
 const StudentReview = () => {
