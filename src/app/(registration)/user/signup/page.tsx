@@ -1,5 +1,5 @@
 "use client";
-
+import Footer from "@/components/footer";
 import React from "react";
 import SignupImage from "@/assets/images/signup.jpg";
 import { useForm } from "react-hook-form";
@@ -7,6 +7,7 @@ import { User, Lock, Mail } from "lucide-react";
 import Header from "@/components/Header";
 import Image from "next/image";
 import { SignupFormInputs } from "@/utils/types";
+import { UseRegister } from "@/hooks/useSignup";
 
 const SignupPage = () => {
   const {
@@ -16,8 +17,10 @@ const SignupPage = () => {
     watch,
   } = useForm<SignupFormInputs>();
 
+const registerMutation = UseRegister();
+
   const onSubmit = (data: SignupFormInputs) => {
-    console.log("Form Data", data);
+    registerMutation.mutate(data)
   };
 
   const password = watch("password", "");
@@ -145,6 +148,7 @@ const SignupPage = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 };
