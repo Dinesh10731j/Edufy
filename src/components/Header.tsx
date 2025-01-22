@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { ChevronUp, ChevronDown, Menu } from "lucide-react";
-
+import Link from "next/link";
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <header
       className={`bg-[#1E88E5] text-white py-2 px-3 md:px-0 fixed w-full z-10 transition-all duration-300 ${
-        isSticky ? "shadow-lg" : ""
+        isSticky ? "shadow-lg transition-opacity" : ""
       }`}
       ref={headerRef}
     >
@@ -117,9 +117,13 @@ const Header = () => {
           </ul>
 
           {/* Get Started Button in Mobile Menu */}
+
+          <Link href={'/user/signup'}>
           <button className="bg-[#FB8C00] text-white px-6 py-2 rounded-full hover:bg-[#FF9800] mt-4">
             Get Started
           </button>
+          </Link>
+         
         </nav>
 
         {/* Close Button */}
@@ -138,9 +142,9 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="flex space-x-8">
-          <a href="#" className="hover:text-[#43A047]">
+          <Link href="/" className="hover:text-[#43A047]">
             Home
-          </a>
+          </Link>
           <a href="#courses" className="hover:text-[#43A047]">
             Courses
           </a>
@@ -184,9 +188,12 @@ const Header = () => {
         </nav>
 
         {/* Get Started Button in Desktop */}
+        <Link href={'/user/signup'}>
         <button className="bg-[#FB8C00] text-white px-6 py-2 rounded-full hover:bg-[#FF9800]">
           Get Started
         </button>
+        </Link>
+      
       </div>
     </header>
   );
