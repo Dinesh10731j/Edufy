@@ -1,3 +1,4 @@
 export const Endpoints ={
-    register:'/users/create'
+    register:'/users/create',
+    userlogin:'/users/login',
 }

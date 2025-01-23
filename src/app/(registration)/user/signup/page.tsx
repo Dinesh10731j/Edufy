@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import Image from "next/image";
 import { SignupFormInputs } from "@/utils/types";
 import { UseRegister } from "@/hooks/useSignup";
+import Link from "next/link";
 
 const SignupPage = () => {
   const {
@@ -144,6 +145,8 @@ const registerMutation = UseRegister();
               >
                 Sign Up
               </button>
+
+              <p className="py-2 px-1 text-center">Allready have an account? <Link href="/user/login" className="text-[#FB8C00]">Login</Link></p>
             </form>
           </div>
         </div>
