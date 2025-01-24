@@ -8,7 +8,7 @@ import maleStudent from "@/assets/images/maleStudent.jpg";
 import Achievement from "@/components/achievement";
 import { Star } from "lucide-react"; 
 import StudentReview from "@/components/review";
-
+import Footer from "@/components/footer";
 
 const Home = () => {
   return (
@@ -47,7 +47,7 @@ const Home = () => {
               <Image
                 src={maleStudent}
                 alt="Male Student"
-                className="absolute bottom-0 right-0 w-24 h-24 lg:w-32 lg:h-32 z-20 rounded-full shadow-md"
+                className="absolute bottom-0 right-0 w-24 h-24 lg:w-32 lg:h-32  rounded-full shadow-md"
               />
             </div>
 
@@ -81,6 +81,7 @@ const Home = () => {
           <StudentReview/>
         </section>
       </section>
+      <Footer/>
     </>
   );
 };

@@ -12,4 +12,15 @@ export interface SignupFormInputs {
   }
 
 
+
+  export interface ContactFormInputs {
+    inquiryPurpose: string;
+    description: string;
+    fullName: string;
+    email: string;
+    organization: string;
+    phone: string;
+    message: string;
+  }
+  
   
