@@ -35,7 +35,7 @@ const Header = () => {
   return (
     <header
       className={`bg-[#1E88E5] text-white py-2 px-3 md:px-0 fixed w-full z-10 transition-all duration-300 ${
-        isSticky ? "shadow-lg transition-opacity" : ""
+        isSticky ? "shadow-lg" : ""
       }`}
       ref={headerRef}
     >
@@ -66,14 +66,14 @@ const Header = () => {
         <nav className="flex flex-col items-center pt-12">
           <ul className="space-y-4">
             <li>
-              <a href="#" className="hover:text-[#43A047]">
+              <Link href="/" className="hover:text-[#43A047]">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#courses" className="hover:text-[#43A047]">
+              <Link href="/courses" className="hover:text-[#43A047]">
                 Courses
-              </a>
+              </Link>
             </li>
 
             {/* Categories Dropdown */}
@@ -145,9 +145,9 @@ const Header = () => {
           <Link href="/" className="hover:text-[#43A047]">
             Home
           </Link>
-          <a href="#courses" className="hover:text-[#43A047]">
+          <Link href="/courses" className="hover:text-[#43A047]">
             Courses
-          </a>
+          </Link>
 
           {/* Categories Dropdown in Desktop */}
           <div
