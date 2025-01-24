@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { ChevronUp, ChevronDown, Menu } from "lucide-react";
+import { ChevronUp, ChevronDown, Menu,X } from "lucide-react";
 import Link from "next/link";
 const Header = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -40,15 +40,15 @@ const Header = () => {
       ref={headerRef}
     >
       <div className="max-w-screen-xl flex justify-between items-center">
-        {/* Logo or Name */}
+     
         <div className="text-2xl md:hidden font-bold">Edufy</div>
 
-        {/* Get Started Button (Mobile View) */}
+    
         <button className="lg:hidden bg-[#FB8C00] text-white px-6 py-2 rounded-full hover:bg-[#FF9800]">
           Get Started
         </button>
 
-        {/* Mobile Menu Button */}
+      
         <button
           className="lg:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -57,7 +57,7 @@ const Header = () => {
         </button>
       </div>
 
-      {/* Mobile Side Navigation */}
+ 
       <div
         className={`fixed inset-0 z-20 bg-[#1E88E5] transition-transform transform ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
@@ -105,9 +105,9 @@ const Header = () => {
             </li>
 
             <li>
-              <a href="#about" className="hover:text-[#43A047]">
+              <Link href="/about" className="hover:text-[#43A047]">
                 About
-              </a>
+              </Link>
             </li>
             <li>
               <Link href="/contact" className="hover:text-[#43A047]">
@@ -116,7 +116,7 @@ const Header = () => {
             </li>
           </ul>
 
-          {/* Get Started Button in Mobile Menu */}
+
 
           <Link href={'/user/signup'}>
           <button className="bg-[#FB8C00] text-white px-6 py-2 rounded-full hover:bg-[#FF9800] mt-4">
@@ -126,12 +126,12 @@ const Header = () => {
          
         </nav>
 
-        {/* Close Button */}
+      
         <button
           className="absolute top-4 right-4 text-white"
           onClick={() => setIsMobileMenuOpen(false)}
         >
-          X
+          <X />
         </button>
       </div>
 
@@ -179,9 +179,9 @@ const Header = () => {
             )}
           </div>
 
-          <a href="#about" className="hover:text-[#43A047]">
+          <Link href="/about" className="hover:text-[#43A047]">
             About
-          </a>
+          </Link>
           <Link href="/contact" className="hover:text-[#43A047]">
             Contact
           </Link>
