@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import Header from "@/components/Header";
 import Footer from "@/components/footer";
 import { ContactFormInputs } from "@/utils/types";
+import { UseContact } from "@/hooks/useContact";
 const Contact = () => {
   const {
     register,
@@ -11,8 +12,10 @@ const Contact = () => {
     formState: { errors },
   } = useForm<ContactFormInputs>();
 
+const contactMutation = UseContact();
+
   const onSubmit: SubmitHandler<ContactFormInputs> = (data) => {
-    console.log(data);
+    contactMutation.mutate(data);
   };
 
   return (
