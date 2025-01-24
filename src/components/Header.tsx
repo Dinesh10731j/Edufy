@@ -110,9 +110,9 @@ const Header = () => {
               </a>
             </li>
             <li>
-              <a href="#contact" className="hover:text-[#43A047]">
+              <Link href="/contact" className="hover:text-[#43A047]">
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
 
@@ -182,14 +182,14 @@ const Header = () => {
           <a href="#about" className="hover:text-[#43A047]">
             About
           </a>
-          <a href="#contact" className="hover:text-[#43A047]">
+          <Link href="/contact" className="hover:text-[#43A047]">
             Contact
-          </a>
+          </Link>
         </nav>
 
         {/* Get Started Button in Desktop */}
         <Link href={'/user/signup'}>
-        <button className="bg-[#FB8C00] text-white px-6 py-2 rounded-full hover:bg-[#FF9800]">
+        <button className="bg-[#FB8C00] text-white px-6 py-2 rounded-md hover:bg-[#FF9800]">
           Get Started
         </button>
         </Link>
