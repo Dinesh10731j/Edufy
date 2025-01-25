@@ -15,7 +15,7 @@ const About = () => {
       <main className="flex-grow container mx-auto p-4 pt-24">
         <section className="grid lg:grid-cols-2 items-center gap-8 mb-12">
           <div>
-            <h2 className="text-4xl font-bold mb-4">About Us</h2>
+            <h2 className="text-4xl font-bold mb-4 text-blue-600">About Us</h2>
             <p className="text-lg text-gray-700 mb-4">
               Edufy is an innovative online teaching platform where users can buy, sell, and teach courses, as well as conduct live streaming sessions to educate students worldwide. Established in 2023, Edufy aims to make learning new skills easier and more accessible for everyone.
             </p>

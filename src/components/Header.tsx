@@ -89,16 +89,16 @@ const Header = () => {
               {isDropdownOpen && (
                 <ul className="bg-white text-[#424242] shadow-lg rounded-md w-48 z-10 mt-2">
                   <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                    <a href="#">Web Development</a>
+                    <Link href="/web_development">Web Development</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                    <a href="#">Data Science</a>
+                    <Link href="/data_science">Data Science</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                    <a href="#">Design</a>
+                    <Link href="/design">Design</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                    <a href="#">Business</a>
+                    <Link href="/business">Business</Link>
                   </li>
                 </ul>
               )}
@@ -164,16 +164,16 @@ const Header = () => {
             {isDropdownOpen && (
               <ul className="absolute bg-white text-[#424242] shadow-lg rounded-md w-48 z-10 mt-2">
                 <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                  <a href="#">Web Development</a>
+                  <Link href="/web_development">Web Development</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                  <a href="#">Data Science</a>
+                  <Link href="/data_science">Data Science</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                  <a href="#">Design</a>
+                  <Link href="/design">Design</Link>
                 </li>
                 <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                  <a href="#">Business</a>
+                  <Link href="/business">Business</Link>
                 </li>
               </ul>
             )}
