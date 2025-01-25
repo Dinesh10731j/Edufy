@@ -22,7 +22,7 @@ const contactMutation = UseContact();
     <>
       <Header />
       <div className="container mx-auto p-4 h-full pt-24">
-        <h1 className="text-3xl font-bold text-center mb-6">Let’s Get In Touch</h1>
+        <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">Let’s Get In Touch</h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Contact Info */}
           <div className="space-y-4 text-gray-700">
