@@ -23,7 +23,7 @@ const Home = () => {
             transition={{ duration: 1 }}
             className="text-center lg:text-left"
           >
-            <h1 className="text-4xl lg:text-6xl font-bold text-[#1F2937] mb-6 leading-tight">
+            <h1 className="text-4xl lg:text-6xl mt-12 font-bold text-[#1F2937] mb-6 leading-tight">
               Empower Your Learning with Edufy
             </h1>
             <p className="text-lg lg:text-xl text-[#6B7280] mb-8 leading-relaxed">
