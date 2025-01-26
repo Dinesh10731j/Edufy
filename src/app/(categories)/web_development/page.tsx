@@ -11,7 +11,7 @@ const WebDevelopment = () => {
     <>
       <Header />
       <div className="p-6 bg-gray-100 min-h-screen pt-28">
-        <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+        <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">
           Web Development Courses
         </h1>
         <p className="text-center text-gray-600 mb-8">
