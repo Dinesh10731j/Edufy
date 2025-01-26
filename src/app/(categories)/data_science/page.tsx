@@ -10,7 +10,7 @@ const DataScience = () => {
       <Header />
       <main className="flex-1 px-4 py-8 md:px-12 bg-gray-50 pt-28">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-4xl font-bold text-center text-gray-800 mb-6">Data Science Courses</h1>
+          <h1 className="text-4xl font-bold text-center text-blue-600 mb-6">Data Science Courses</h1>
           <p className="text-lg text-gray-600 text-center mb-8">
             Explore a wide range of Data Science courses that help you master machine learning, data visualization, and predictive analytics.
           </p>
