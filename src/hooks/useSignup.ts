@@ -3,10 +3,10 @@ import { Endpoints } from "@/api/endpoints";
 const { register } = Endpoints;
 import axiosInstance from "@/axiosinstance/axiosInstance";
 import { SignupFormInputs } from "@/utils/types";
-const signup = async (registerData: SignupFormInputs) => {
+const signup = async (registerData: SignupFormInputs):Promise<SignupFormInputs> => {
   try {
     const response = await axiosInstance.post(register, registerData);
-    return response.data;
+    return response.data as SignupFormInputs;
   } catch (error: unknown) {
     if (error instanceof Error) {
       throw new Error(error.message);

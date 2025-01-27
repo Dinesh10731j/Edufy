@@ -2,8 +2,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { Mail, Lock } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/footer";
 import { LoginFormInputs } from "@/utils/types";
 import { UseLogin } from "@/hooks/useLogin";
 import Image from "next/image";
@@ -24,7 +22,6 @@ const LoginPage = () => {
 
   return (
     <>
-      <Header />
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
         <div className="flex flex-col md:flex-row md:space-x-8 items-center w-full max-w-4xl p-8 rounded-md">
           {/* Image Section */}
@@ -114,7 +111,6 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

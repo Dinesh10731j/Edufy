@@ -2,14 +2,12 @@
 
 import React from "react";
 import { courses } from "@/utils/courses";
-import Header from "@/components/Header";
-import Footer from "@/components/footer";
+
 import { categories } from "@/utils/categories";
 const WebDevelopment = () => {
   
   return (
     <>
-      <Header />
       <div className="p-6 bg-gray-100 min-h-screen pt-28">
         <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">
           Web Development Courses
@@ -41,7 +39,6 @@ const WebDevelopment = () => {
           </div>
         ))}
       </div>
-      <Footer />
     </>
   );
 };

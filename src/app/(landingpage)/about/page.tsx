@@ -2,15 +2,12 @@
 
 import React from "react";
 import { Users, Video, ShoppingCart, DollarSign } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/footer";
 import aboutImage from '@/assets/images/about.jpg';
 import Image from 'next/image';
 
 const About = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Header/>
       {/* Main Content */}
       <main className="flex-grow container mx-auto p-4 pt-24">
         <section className="grid lg:grid-cols-2 items-center gap-8 mb-12">
@@ -72,9 +69,6 @@ const About = () => {
           </p>
         </section>
       </main>
-
-      {/* Footer */}
-     <Footer/>
     </div>
   );
 };

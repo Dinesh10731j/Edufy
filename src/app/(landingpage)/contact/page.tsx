@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Header from "@/components/Header";
-import Footer from "@/components/footer";
 import { ContactFormInputs } from "@/utils/types";
 import { UseContact } from "@/hooks/useContact";
 const Contact = () => {
@@ -20,7 +18,6 @@ const contactMutation = UseContact();
 
   return (
     <>
-      <Header />
       <div className="container mx-auto p-4 h-full pt-24">
         <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">Let’s Get In Touch</h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -144,7 +141,6 @@ const contactMutation = UseContact();
           </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

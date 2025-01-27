@@ -1,10 +1,8 @@
 "use client";
-import Footer from "@/components/footer";
 import React from "react";
 import SignupImage from "@/assets/images/signup.jpg";
 import { useForm } from "react-hook-form";
 import { User, Lock, Mail } from "lucide-react";
-import Header from "@/components/Header";
 import Image from "next/image";
 import { SignupFormInputs } from "@/utils/types";
 import { UseRegister } from "@/hooks/useSignup";
@@ -28,7 +26,6 @@ const registerMutation = UseRegister();
 
   return (
     <>
-      <Header />
       <div className="min-h-screen bg-gray-50 flex flex-col justify-center items-center">
         <div className="flex flex-col md:flex-row md:space-x-8 items-center w-full max-w-4xl p-8 rounded-md">
           {/* Image Section */}
@@ -151,7 +148,7 @@ const registerMutation = UseRegister();
           </div>
         </div>
       </div>
-      <Footer/>
+
     </>
   );
 };
