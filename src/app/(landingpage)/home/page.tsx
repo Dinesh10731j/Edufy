@@ -7,10 +7,13 @@ import maleStudent from "@/assets/images/maleStudent.jpg";
 import Achievement from "@/components/achievement";
 import { Star, BookOpen, GraduationCap, PenTool, Globe } from "lucide-react"; 
 import StudentReview from "@/components/review";
+import Header from "@/components/Header";
+import Footer from "@/components/footer";
 
 const Home = () => {
   return (
     <>
+    <Header/>
       <section className="relative bg-[#FAF8F3] px-6 lg:px-20 py-12 lg:py-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center gap-12">
           {/* Left Content */}
@@ -138,6 +141,7 @@ const Home = () => {
           <StudentReview />
         </section>
       </section>
+      <Footer/>
     </>
   );
 };

@@ -119,7 +119,7 @@ const Header = () => {
 
 
           <Link href={'/user/signup'}>
-          <button className="bg-[#FB8C00] text-white px-6 py-2 rounded-full hover:bg-[#FF9800] mt-4">
+          <button className="bg-[#FB8C00] text-white px-6 py-2 rounded-full pb-8 hover:bg-[#FF9800] mt-4">
             Get Started
           </button>
           </Link>
@@ -189,7 +189,7 @@ const Header = () => {
 
         {/* Get Started Button in Desktop */}
         <Link href={'/user/signup'}>
-        <button className="bg-[#FB8C00] text-white px-6 py-2 rounded-md hover:bg-[#FF9800]">
+        <button className="bg-[#FB8C00] text-white px-6 py-2 pb-3 rounded-full hover:bg-[#FF9800]">
           Get Started
         </button>
         </Link>

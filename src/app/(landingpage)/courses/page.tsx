@@ -4,10 +4,12 @@ import React from 'react';
 import { ShoppingCart, Video, BookOpen, PlusCircle } from 'lucide-react'; // Lucide icons
 import Image from 'next/image';
 import courseImage from "@/assets/images/course.jpg";
-
+import Footer from '@/components/footer';
+import Header from '@/components/Header';
 const CoursePage = () => {
   return (
     <>
+    <Header/>
     
 
       {/* Main Content */}
@@ -70,7 +72,7 @@ const CoursePage = () => {
           ))}
         </div>
       </div>
-
+<Footer/>
     </>
   );
 };
