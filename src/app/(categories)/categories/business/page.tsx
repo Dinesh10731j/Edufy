@@ -1,13 +1,12 @@
 "use client";
 import React from 'react';
 import { Briefcase, BarChart2, DollarSign, Users } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/footer';
+
 
 const Business = () => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
+    
       <main className="flex-1 px-4 py-8 md:px-12 bg-gray-50 pt-28">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-4xl font-bold text-center text-blue-600 mb-6">Business Courses</h1>
@@ -58,7 +57,7 @@ const Business = () => {
           </div>
         </div>
       </main>
-      <Footer />
+    
     </div>
   );
 };

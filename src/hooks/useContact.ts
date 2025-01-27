@@ -3,12 +3,12 @@ const { userContact } = Endpoints;
 import axiosInstance from "@/axiosinstance/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { ContactFormInputs } from "@/utils/types";
-const contact = async (contactData: ContactFormInputs) => {
+const contact = async (contactData: ContactFormInputs):Promise<ContactFormInputs> => {
   try {
     const response = await axiosInstance.post(userContact, contactData);
 
     if (response.status === 201) {
-      return response.data;
+      return response.data as ContactFormInputs;
     } else {
       throw new Error(response.data.message);
     }

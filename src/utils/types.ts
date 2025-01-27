@@ -6,7 +6,7 @@ export interface SignupFormInputs {
   }
 
 
-  export interface LoginFormInputs extends SignupFormInputs{
+  export interface LoginFormInputs{
     email: string;
     password: string;
   }
