@@ -44,7 +44,7 @@ const Header = () => {
         <div className="text-2xl md:hidden font-bold">Edufy</div>
 
     
-        <button className="lg:hidden bg-[#FB8C00] text-white px-6 py-2 rounded-full hover:bg-[#FF9800]">
+        <button className="lg:hidden bg-[#FB8C00] text-white px-6 py-1 pb-2 rounded-full hover:bg-[#FF9800]">
           Get Started
         </button>
 
@@ -119,7 +119,7 @@ const Header = () => {
 
 
           <Link href={'/user/signup'}>
-          <button className="bg-[#FB8C00] text-white px-6 py-2 rounded-full pb-8 hover:bg-[#FF9800] mt-4">
+          <button className="bg-[#FB8C00] text-white px-6 py-1 rounded-full pb-2 hover:bg-[#FF9800] mt-4">
             Get Started
           </button>
           </Link>

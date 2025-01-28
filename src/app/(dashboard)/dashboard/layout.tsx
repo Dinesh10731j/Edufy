@@ -1,5 +1,6 @@
 "use client"
 import React from 'react';
+import DashboardSidenav from '@/components/dashboardsidenav';
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -11,7 +12,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
    
       <main className=''>
        
-        {children}
+      <DashboardSidenav>{children}</DashboardSidenav>  
      
       </main>
     </div>
