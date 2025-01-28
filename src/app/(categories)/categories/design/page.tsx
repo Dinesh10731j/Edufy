@@ -6,7 +6,7 @@ const Design = () => {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 px-4 py-8 md:px-12 bg-gray-50 pt-28">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-4xl font-bold text-center text-blue-600mb-6">Design Courses</h1>
+          <h1 className="text-4xl font-bold text-center text-blue-600 mb-6">Design Courses</h1>
           <p className="text-lg text-gray-600 text-center mb-8">
             Dive into the world of UI/UX design with courses that help you master tools like Figma, Adobe XD, and more.
           </p>

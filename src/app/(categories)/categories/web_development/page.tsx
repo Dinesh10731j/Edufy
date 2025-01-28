@@ -17,7 +17,7 @@ const WebDevelopment = () => {
         </p>
         {categories.map((category, index) => (
           <div key={index} className="mb-12">
-            <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            <h2 className="text-2xl font-bold text-blue-600 mb-4">
               {category.title}
             </h2>
             <p className="text-gray-600 mb-6">{category.description}</p>
