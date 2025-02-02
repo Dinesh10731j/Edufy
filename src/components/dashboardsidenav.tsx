@@ -33,7 +33,7 @@ const DashboardSidenav:React.FC<DashboardSidenavProps> = ({children}) => {
        <Link href={'/'}>  <h1 className="text-xl font-bold">{isOpen ? "Edufy" : "E"}</h1></Link> 
           <button
             onClick={toggleSidebar}
-            className="lg:hidden text-white hover:text-white"
+            className=" hidden md:block lg:block text-white hover:text-white"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
