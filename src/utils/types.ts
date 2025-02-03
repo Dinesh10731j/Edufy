@@ -22,5 +22,19 @@ export interface SignupFormInputs {
     phone: string;
     message: string;
   }
+
+  export interface BrowseCoursesType {
+    id: number;
+    title: string;
+    instructor: string;
+    category: string;
+    price: number;
+    livestream: {
+      isLive: boolean;
+      url: string | null;
+      schedule: string;
+    };
+  }
+  
   
   
