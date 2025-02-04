@@ -29,7 +29,7 @@ const CreateCourse = () => {
       <EditorJs onInit={handleEditorInit} />
       <button
         onClick={handleSubmit}
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+        className="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded"
       >
         Save Data
       </button>

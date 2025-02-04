@@ -26,6 +26,7 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
     if (!editorJsRef.current) {
       const editor = new EditorJS({
         holder: "editorjs",
+        placeholder:"Make Courses.....",
         tools: {
           paragraph: Paragraph,
           image: Image,
