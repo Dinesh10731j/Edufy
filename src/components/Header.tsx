@@ -89,16 +89,16 @@ const Header = () => {
               {isDropdownOpen && (
                 <ul className="bg-white text-[#424242] shadow-lg rounded-md w-48 z-10 mt-2">
                   <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                    <Link href="/web_development">Web Development</Link>
+                    <Link href="/categories/web_development">Web Development</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                    <Link href="/data_science">Data Science</Link>
+                    <Link href="/categories/data_science">Data Science</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                    <Link href="/design">Design</Link>
+                    <Link href="/categories/design">Design</Link>
                   </li>
                   <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                    <Link href="/business">Business</Link>
+                    <Link href="/categories/business">Business</Link>
                   </li>
                 </ul>
               )}
