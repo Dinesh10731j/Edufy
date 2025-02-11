@@ -1,12 +1,14 @@
 "use client";
-
 import React, { useState, useRef, useEffect } from "react";
-import { ChevronUp, ChevronDown, Menu,X } from "lucide-react";
+import { ChevronUp, ChevronDown, Menu, X } from "lucide-react";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 const Header = () => {
+  const pathname = usePathname();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSticky, setIsSticky] = useState(false); 
+  const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef<HTMLDivElement>(null);
 
   const handleDropdownToggle = () => {
@@ -40,15 +42,12 @@ const Header = () => {
       ref={headerRef}
     >
       <div className="max-w-screen-xl flex justify-between items-center">
-     
         <div className="text-2xl md:hidden font-bold">Edufy</div>
 
-    
         <button className="lg:hidden bg-[#FB8C00] text-white px-6 py-1 pb-2 rounded-full hover:bg-[#FF9800]">
           Get Started
         </button>
 
-      
         <button
           className="lg:hidden text-white"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -57,7 +56,6 @@ const Header = () => {
         </button>
       </div>
 
- 
       <div
         className={`fixed inset-0 z-20 bg-[#1E88E5] transition-transform transform ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
@@ -66,12 +64,16 @@ const Header = () => {
         <nav className="flex flex-col items-center pt-12">
           <ul className="space-y-4">
             <li>
-              <Link href="/" className="hover:text-[#43A047]">
+              <Link href="/"  className={`hover:text-black ${
+              pathname === "/" ? "text-[#FB8C00]" : ""
+            }`}>
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/courses" className="hover:text-[#43A047]">
+              <Link href="/courses"  className={`hover:text-black ${
+              pathname === "/courses" ? "text-[#FB8C00]" : ""
+            }`}>
                 Courses
               </Link>
             </li>
@@ -87,46 +89,70 @@ const Header = () => {
               </button>
 
               {isDropdownOpen && (
-                <ul className="bg-white text-[#424242] shadow-lg rounded-md w-48 z-10 mt-2">
-                  <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                    <Link href="/categories/web_development">Web Development</Link>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-[#F5F5F5]">
+                <motion.ul
+                  className="bg-white text-[#424242] shadow-lg rounded-md w-48 z-10 mt-2"
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <motion.li
+                    className="px-4 py-2 hover:bg-[#F5F5F5] rounded-md"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Link href="/categories/web_development">
+                      Web Development
+                    </Link>
+                  </motion.li>
+                  <motion.li
+                    className="px-4 py-2 hover:bg-[#F5F5F5] rounded-md"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
                     <Link href="/categories/data_science">Data Science</Link>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-[#F5F5F5]">
+                  </motion.li>
+                  <motion.li
+                    className="px-4 py-2 hover:bg-[#F5F5F5] rounded-md"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
                     <Link href="/categories/design">Design</Link>
-                  </li>
-                  <li className="px-4 py-2 hover:bg-[#F5F5F5]">
+                  </motion.li>
+                  <motion.li
+                    className="px-4 py-2 hover:bg-[#F5F5F5] rounded-md"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
                     <Link href="/categories/business">Business</Link>
-                  </li>
-                </ul>
+                  </motion.li>
+                </motion.ul>
               )}
             </li>
 
             <li>
-              <Link href="/about" className="hover:text-[#43A047]">
+              <Link href="/about"  className={`hover:text-black ${
+              pathname === "/about" ? "text-[#FB8C00]" : ""
+            }`}>
                 About
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-[#43A047]">
+              <Link href="/contact"  className={`hover:text-black ${
+              pathname === "/contact" ? "text-[#FB8C00]" : ""
+            }`}>
                 Contact
               </Link>
             </li>
           </ul>
 
-
-
-          <Link href={'/user/signup'}>
-          <button className="bg-[#FB8C00] text-white px-6 py-1 rounded-full pb-2 hover:bg-[#FF9800] mt-4">
-            Get Started
-          </button>
+          <Link href={"/user/signup"}>
+            <button className="bg-[#FB8C00] text-white px-6 py-1 rounded-full pb-2 hover:bg-[#FF9800] mt-4">
+              Get Started
+            </button>
           </Link>
-         
         </nav>
 
-      
         <button
           className="absolute top-4 right-4 text-white"
           onClick={() => setIsMobileMenuOpen(false)}
@@ -142,10 +168,14 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="flex space-x-8">
-          <Link href="/" className="hover:text-[#43A047]">
+          <Link href="/"  className={`hover:text-black ${
+              pathname === "/" ? "text-[#FB8C00]" : ""
+            }`}>
             Home
           </Link>
-          <Link href="/courses" className="hover:text-[#43A047]">
+          <Link href="/courses"  className={`hover:text-black ${
+              pathname === "/courses" ? "text-[#FB8C00]" : ""
+            }`}>
             Courses
           </Link>
 
@@ -162,38 +192,83 @@ const Header = () => {
               {isDropdownOpen ? <ChevronUp /> : <ChevronDown />}
             </button>
             {isDropdownOpen && (
-              <ul className="absolute bg-white text-[#424242] shadow-lg rounded-md w-48 z-10 mt-2">
-                <li className="px-4 py-2 hover:bg-[#F5F5F5]">
-                  <Link href="/categories/web_development">Web Development</Link>
-                </li>
-                <li className="px-4 py-2 hover:bg-[#F5F5F5]">
+              <motion.ul
+                className="absolute bg-white text-[#424242] shadow-lg rounded-md w-48 z-10 mt-2"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+              >
+                <motion.li
+                  className={`px-4 py-2 rounded-md ${
+                    pathname === "/categories/web_development"
+                      ? "bg-[#E0E0E0]"
+                      : ""
+                  } hover:bg-[#F5F5F5]`}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  <Link href="/categories/web_development">
+                    Web Development
+                  </Link>
+                </motion.li>
+
+                <motion.li
+                  className={`px-4 py-2 rounded-md ${
+                    pathname === "/categories/data_science"
+                      ? "bg-[#E0E0E0]"
+                      : ""
+                  } hover:bg-[#F5F5F5]`}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <Link href="/categories/data_science">Data Science</Link>
-                </li>
-                <li className="px-4 py-2 hover:bg-[#F5F5F5]">
+                </motion.li>
+
+                <motion.li
+                  className={`px-4 py-2 rounded-md ${
+                    pathname === "/categories/design" ? "bg-[#E0E0E0]" : ""
+                  } hover:bg-[#F5F5F5]`}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <Link href="/categories/design">Design</Link>
-                </li>
-                <li className="px-4 py-2 hover:bg-[#F5F5F5]">
+                </motion.li>
+
+                <motion.li
+                  className={`px-4 py-2 rounded-md ${
+                    pathname === "/categories/business" ? "bg-[#E0E0E0]" : ""
+                  } hover:bg-[#F5F5F5]`}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   <Link href="/categories/business">Business</Link>
-                </li>
-              </ul>
+                </motion.li>
+              </motion.ul>
             )}
           </div>
-
-          <Link href="/about" className="hover:text-[#43A047]">
+          <Link
+            href="/about"
+            className={`hover:text-black ${
+              pathname === "/about" ? "text-[#FB8C00]" : ""
+            }`}
+          >
             About
           </Link>
-          <Link href="/contact" className="hover:text-[#43A047]">
+
+          <Link href="/contact"  className={`hover:text-black ${
+              pathname === "/contact" ? "text-[#FB8C00]" : ""
+            }`}>
             Contact
           </Link>
         </nav>
 
         {/* Get Started Button in Desktop */}
-        <Link href={'/user/signup'}>
-        <button className="bg-[#FB8C00] text-white px-6 py-2 pb-3 rounded-full hover:bg-[#FF9800]">
-          Get Started
-        </button>
+        <Link href={"/user/signup"}>
+          <button className="bg-[#FB8C00] text-white px-6 py-2 pb-3 rounded-full hover:bg-[#FF9800]">
+            Get Started
+          </button>
         </Link>
-      
       </div>
     </header>
   );
