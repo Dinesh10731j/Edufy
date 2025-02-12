@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
   BookOpen,
   PlusCircle,
@@ -15,6 +16,7 @@ interface DashboardSidenavProps {
 
 const DashboardSidenav:React.FC<DashboardSidenavProps> = ({children}) => {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -43,21 +45,27 @@ const DashboardSidenav:React.FC<DashboardSidenavProps> = ({children}) => {
         <nav className="mt-5 space-y-4">
           <Link
             href="/dashboard/browse_courses"
-            className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition rounded-md"
+            className={`flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition rounded-md
+              ${pathname === '/dashboard/browse_courses'?'bg-gray-700':''}
+              `}
           >
             <BookOpen size={20} />
             {isOpen && <span>Browse Courses</span>}
           </Link>
           <Link
             href="/dashboard/create_course"
-            className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition rounded-md"
+            className={`flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition rounded-md
+              ${pathname === '/dashboard/create_course' ? 'bg-gray-700':''}
+              `}
           >
             <PlusCircle size={20} />
             {isOpen && <span>Create Courses</span>}
           </Link>
           <Link
             href="/dashboard/live_stream"
-            className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition rounded-md"
+            className={`flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition rounded-md
+              ${pathname === '/dashboard/live_stream'?'bg-gray-700':''}
+              `}
           >
             <Video size={20} />
             {isOpen && <span>Live Stream</span>}
