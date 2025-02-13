@@ -5,6 +5,9 @@ import { ContactFormInputs } from "@/utils/types";
 import { UseContact } from "@/hooks/useContact";
 import Header from "@/components/Header";
 import Footer from "@/components/footer";
+import contactImage from "@/assets/images/contact.jpg";
+import Image from "next/image";
+import {Phone,Mail,Pin } from "lucide-react";
 const Contact = () => {
   const {
     register,
@@ -21,14 +24,22 @@ const contactMutation = UseContact();
   return (
     <>
     <Header/>
-      <div className="container mx-auto p-4 h-full pt-24">
+      <div className="container mx-auto p-4 h-full pt-28">
         <h1 className="text-3xl font-bold text-center mb-6 text-blue-600">Let’s Get In Touch</h1>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Contact Info */}
           <div className="space-y-4 text-gray-700">
-            <p>📞 +123 45 789 000</p>
-            <p>📧 inquiry@edufy.com</p>
-            <p>📍 221b Elementary Street, New York, NY</p>
+          <p className="flex items-center text-gray-700">
+    <Phone className="text-blue-500 mr-2" /> +123 45 789 000
+</p>
+<p className="flex items-center text-gray-700">
+    <Mail className="text-green-500 mr-2" /> inquiry@edufy.com
+</p>
+<p className="flex items-center text-gray-700">
+    <Pin className="text-red-500 mr-2" /> 221b Elementary Street, New York, NY
+</p>
+
+            <Image src={contactImage} height={400} width={400} alt="contact_image" />
           </div>
 
           {/* Contact Form */}
