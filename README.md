@@ -6,7 +6,7 @@ Eudify is an all-in-one online platform where users can:
 - **Sell Courses**: Share your expertise by creating and selling courses.
 - **Live Stream**: Host or attend live sessions for interactive learning experiences.
 
-Built using cutting-edge technologies like **NestJS**, **Next.js**, **React**, and **Redux**, Eudify provides a seamless and intuitive experience for learners and educators alike.
+Built using cutting-edge technologies like **ExpressJS**, **Next.js**, **React**, and **Redux**, Eudify provides a seamless and intuitive experience for learners and educators alike.
 
 ---
 
@@ -35,7 +35,7 @@ Built using cutting-edge technologies like **NestJS**, **Next.js**, **React**, a
 ## Tech Stack
 
 ### Backend
-- **NestJS**: Modular and scalable framework for building the API.
+- **ExpressJS**: Modular and scalable framework for building the API.
 
 ### Frontend
 - **Next.js**: Server-side rendering for faster page loads.
@@ -61,58 +61,4 @@ Follow these steps to run the project locally:
 ### Steps
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/eudify.git
-   cd eudify
-   ```
-
-2. Install dependencies for both the frontend and backend:
-   ```bash
-   # Backend
-   cd backend
-   npm install
-
-   # Frontend
-   cd ../frontend
-   npm install
-   ```
-
-3. Set up environment variables:
-   - Create a `.env` file in both `backend` and `frontend` directories.
-   - Add necessary variables (e.g., database URL, API keys, etc.).
-
-4. Run the backend:
-   ```bash
-   cd backend
-   npm start
-   ```
-
-5. Run the frontend:
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-
-6. Open your browser and navigate to `http://localhost:3000`.
-
----
-
-## Contributing
-
-We welcome contributions from the community! Here's how you can help:
-
-1. Fork the repository.
-2. Create a feature branch.
-3. Commit your changes and push them to your fork.
-4. Open a pull request with a detailed description of your changes.
-
----
-
-
-## Contact
-
-For any inquiries or support, feel free to reach out:
-
-- Email: support@eudify.com
-
-
+ 
