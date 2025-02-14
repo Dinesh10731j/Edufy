@@ -70,3 +70,4 @@ const BrowseCourses = () => {
 };
 
 export default BrowseCourses;
+
