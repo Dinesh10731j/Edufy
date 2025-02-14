@@ -45,7 +45,7 @@ const Header = () => {
         <div className="text-2xl md:hidden font-bold">Edufy</div>
 
         <button className="lg:hidden bg-[#FB8C00] text-white px-6 py-1 pb-2 rounded-full hover:bg-[#FF9800]">
-          Get Started
+         <Link href={'/user/signup'}>Get Started</Link> 
         </button>
 
         <button

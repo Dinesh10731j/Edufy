@@ -1,5 +1,5 @@
 export const Endpoints ={
-    register:'/users/create',
-    userlogin:'/users/login',
+    register:'/api/v1/user/signup',
+    userlogin:'/api/v1/user/login',
     userContact:'/users/contact'
 }

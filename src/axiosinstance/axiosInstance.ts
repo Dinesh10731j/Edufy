@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:1010",
+  baseURL: "http://localhost:1080",
   headers: {
     "Content-Type": "application/json",
   },

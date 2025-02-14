@@ -35,6 +35,18 @@ export interface SignupFormInputs {
       schedule: string;
     };
   }
+
+
+
+  export interface loginResponse {
+    token:string
+  }
+
+  
+  export interface signupResponse {
+    token:string
+  }
+  
   
   
   
