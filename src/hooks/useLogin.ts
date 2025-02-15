@@ -1,4 +1,5 @@
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import { redirect } from "next/navigation";
 import { LoginFormInputs, loginResponse } from "@/utils/types";
 import { Endpoints } from "@/api/endpoints";
 import axiosInstance from "@/axiosinstance/axiosInstance";
@@ -9,20 +10,26 @@ const { userlogin } = Endpoints;
 
 const login = async (loginData: LoginFormInputs): Promise<loginResponse> => {
   try {
-    const response = await axiosInstance.post<loginResponse>(userlogin, loginData);
+    const response = await axiosInstance.post<loginResponse>(
+      userlogin,
+      loginData
+    );
     return response.data;
   } catch (error: unknown) {
-  
     if (error instanceof Error) {
       console.error(`Login failed: ${error.message}`);
-      throw new Error(error.message); 
+      throw new Error(error.message);
     }
 
     throw new Error("An unknown error occurred. Please try again later.");
   }
 };
 
-export const UseLogin = (): UseMutationResult<loginResponse, Error, LoginFormInputs> => {
+export const UseLogin = (): UseMutationResult<
+  loginResponse,
+  Error,
+  LoginFormInputs
+> => {
   const dispatch = useDispatch();
 
   return useMutation<loginResponse, Error, LoginFormInputs>({
@@ -37,7 +44,12 @@ export const UseLogin = (): UseMutationResult<loginResponse, Error, LoginFormInp
           secure: true,
           sameSite: "Strict",
         });
+
         dispatch(addToast({ message: "Login Successful", type: "success" }));
+
+        setTimeout(() => {
+          redirect("/dashboard");
+        }, 1000);
       }
     },
     onError: (error: Error) => {

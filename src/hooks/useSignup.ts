@@ -1,4 +1,7 @@
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import { redirect } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { addToast } from "@/redux/slices/toastSlice";
 import { SignupFormInputs } from "@/utils/types";
 import { Endpoints } from "@/api/endpoints";
 import axiosInstance from "@/axiosinstance/axiosInstance";
@@ -18,7 +21,7 @@ const signup = async (
   } catch (error: unknown) {
     if (error instanceof Error) {
       console.error(`Signup failed: ${error.message}`);
-      throw new Error(error.message); 
+      throw new Error(error.message);
     }
     throw new Error("An unknown error occurred during signup.");
   }
@@ -29,6 +32,8 @@ export const UseRegister = (): UseMutationResult<
   Error,
   SignupFormInputs
 > => {
+
+  const dispatch = useDispatch();
   return useMutation<signupResponse, Error, SignupFormInputs>({
     mutationKey: ["register"],
     mutationFn: signup,
@@ -42,10 +47,17 @@ export const UseRegister = (): UseMutationResult<
           secure: true,
           sameSite: "Strict",
         });
+           dispatch(addToast({ message: "Signup Successful", type: "success" }));
+
+        setTimeout(() => {
+          redirect("/user/login");
+        }, 1000);
       }
     },
     onError: (error: Error) => {
+
       console.error("Error during registration:", error.message);
+      dispatch(addToast({ message: "Login Failed!", type: "error" }));
     },
   });
 };

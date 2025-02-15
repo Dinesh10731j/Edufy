@@ -40,7 +40,7 @@ const registerMutation = UseRegister();
           </div>
           {/* Form Section */}
           <div className="w-full max-w-md">
-            <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
+            <h2 className="text-2xl font-bold text-center mb-6 text-blue-600">Sign Up</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-2" htmlFor="name">
