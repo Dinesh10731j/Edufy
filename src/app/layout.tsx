@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";  // Only import Poppins font
 import "./globals.css";
 import { ReactQueryProvider } from "./react-query-provider";
 import { ReactReduxProvider } from "./react-redux-provider";
+import ToastContainer from "@/components/toastcontainer";
 // Initialize Poppins font
 const poppins = Poppins({
   variable: "--font-poppins",  // Custom variable name for Poppins font
@@ -24,7 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.variable} antialiased`}> {/* Apply Poppins font globally */}
         <ReactQueryProvider>
-        <ReactReduxProvider>{children}</ReactReduxProvider>
+        <ReactReduxProvider>
+          <ToastContainer/>
+          {children}
+          </ReactReduxProvider>
       
         </ReactQueryProvider>
       
