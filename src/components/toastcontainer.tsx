@@ -1,18 +1,25 @@
+"use client"
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/redux/store/store";
+import Toast from "./toast";
+import { removeToast } from "@/redux/slices/toastSlice";
 
-"use client";
-import { Provider } from "react-redux";
-import { store } from "../redux/store/store"
-import ToastContainer from "@/components/toastcontainer";
+const ToastContainer = () => {
+  const toasts = useSelector((state: RootState) => state.toast);
+  const dispatch = useDispatch();
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Provider store={store}>
-      <html lang="en">
-        <body>
-          <ToastContainer>{children}</ToastContainer>
-         
-        </body>
-      </html>
-    </Provider>
+    <div className="fixed top-5 right-5 z-50 flex flex-col gap-2">
+      {toasts.map((toast) => (
+        <Toast
+          key={toast.id}
+          message={toast.message}
+          type={toast.type}
+          onClose={() => dispatch(removeToast(toast.id))}
+        />
+      ))}
+    </div>
   );
-}
+};
+
+export default ToastContainer;
