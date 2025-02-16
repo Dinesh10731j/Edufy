@@ -1,19 +1,19 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import EditorJS from "@editorjs/editorjs";
+import EditorJS,{ToolConstructable} from "@editorjs/editorjs";
 import Paragraph from "@editorjs/paragraph";
-import Image from "@editorjs/image";
-import Code from "@editorjs/code";
+import ImageTool from "@editorjs/image";
+import CodeTool from "@editorjs/code";
 import Header from "@editorjs/header";
-import Table from "@editorjs/table";
-import Warning from "@editorjs/warning";
-import Checklist from "@editorjs/checklist";
-import List from "@editorjs/list";
-import Embed from "@editorjs/embed";
-import inlineCode from "@editorjs/inline-code" ;
-import Quote from '@editorjs/quote';
-import Raw from "@editorjs/raw"
+import TableTool from "@editorjs/table";
+import WarningTool from "@editorjs/warning";
+import ChecklistTool from "@editorjs/checklist";
+import ListTool from "@editorjs/list";
+import EmbedTool from "@editorjs/embed";
+import InlineCodeTool from "@editorjs/inline-code";
+import QuoteTool from "@editorjs/quote";
+import RawTool from "@editorjs/raw";
 
 interface EditorjsProps {
   onInit: (editor: EditorJS) => void;
@@ -26,21 +26,60 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
     if (!editorJsRef.current) {
       const editor = new EditorJS({
         holder: "editorjs",
-        placeholder:"Make Courses.....",
+        autofocus: true,
+        defaultBlock: "paragraph",
+        placeholder: "Start creating courses.....",
         tools: {
-          paragraph: Paragraph,
-          image: Image,
-          code: Code,
-          header: Header,
-          checklist:Checklist,
-          list:List,
-          table:Table,
-          warning:Warning,
-          embed:Embed,
-          inlinecode:inlineCode,
-          quote:Quote,
-          raw:Raw
-
+          paragraph: {
+            class: Paragraph as ToolConstructable,
+            config: {
+              inlineToolbar: ["bold", "italic", "inlineCode", "link", "marker"],
+            },
+          },
+          image: {
+            class: ImageTool,
+            config: {
+              endpoints: {
+                byFile: "file-upload-endpoint", 
+                byUrl: "url-fetch-endpoint", 
+              },
+            },
+          },
+          code: {
+            class: CodeTool,
+          
+          },
+          header: {
+            class: Header as unknown as ToolConstructable,
+            config: {
+              levels: [1,2, 3, 4,5,6],
+              defaultLevel: 2,
+            },
+          },
+          checklist: {
+            class: ChecklistTool,
+          },
+          list: {
+            class: ListTool as unknown as ToolConstructable,
+          },
+          table: {
+            class: TableTool as unknown as ToolConstructable,
+          },
+          warning: {
+            class: WarningTool,
+          },
+          embed: {
+            class: EmbedTool,
+          },
+          inlineCode: {
+            class: InlineCodeTool,
+          },
+          quote: {
+            class: QuoteTool,
+          },
+          raw: {
+            class: RawTool,
+          },
         },
       });
 
@@ -49,16 +88,14 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
     }
 
     return () => {
-      if (editorJsRef.current?.destroy) {
+      if (editorJsRef.current && typeof editorJsRef.current.destroy === "function") {
         editorJsRef.current.destroy();
         editorJsRef.current = null;
       }
     };
   }, [onInit]);
 
-  return (
-    <div id="editorjs" className="w-full min-h-screen shadow-md overflow-hidden"></div>
-  );
+  return <div id="editorjs" className="w-full min-h-screen shadow-md overflow-hidden"></div>;
 };
 
 export default EditorJs;

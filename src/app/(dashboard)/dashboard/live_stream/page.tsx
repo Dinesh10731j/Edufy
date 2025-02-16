@@ -11,7 +11,6 @@ const LiveStream = () => {
   const [isLive, setIsLive] = useState(false);
   const [viewers, setViewers] = useState(0);
   const [messages, setMessages] = useState<{ user: string; text: string }[]>([]);
-  const [message, setMessage] = useState("");
   const streamId = "course-123";
   const videoRef = useRef<HTMLVideoElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -61,29 +60,26 @@ const LiveStream = () => {
     socket.emit("end-stream", streamId);
   };
 
-  const sendMessage = () => {
-    if (message.trim()) {
-      socket.emit("send-message", { user: "User", text: message });
-      setMessage("");
-    }
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold text-gray-800">Live Stream</h1>
+    <div className="min-h-screen w-full bg-gray-100 p-4">
+      <h1 className="text-2xl font-bold text-gray-800 mb-4 text-center">Live Stream</h1>
 
-      <div className="w-full max-w-2xl bg-black aspect-video rounded-lg overflow-hidden mb-4 flex items-center justify-center text-white">
-        <video ref={videoRef} autoPlay playsInline className="w-full h-full" hidden={!isLive} />
-        {!isLive && <span>Video Placeholder</span>}
+      
+      <div className="w-full h-[90vh] bg-black rounded-lg overflow-hidden mb-4 flex items-center justify-center text-white">
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          className="w-full h-full object-cover"
+          hidden={!isLive}
+        />
+        {!isLive && <span className="text-3xl">Video Placeholder</span>}
       </div>
 
-      <div className="w-full max-w-2xl flex justify-between mb-4">
+      <div className="flex justify-between items-center mb-4">
         <span className="text-gray-700">👀 Viewers: {viewers}</span>
         {isLive ? (
-          <button
-            onClick={endStream}
-            className="px-4 py-2 bg-red-500 text-white rounded-lg"
-          >
+          <button onClick={endStream} className="px-4 py-2 bg-red-500 text-white rounded-lg">
             ⏹ End Live
           </button>
         ) : (
@@ -97,28 +93,15 @@ const LiveStream = () => {
         )}
       </div>
 
-      <div className="w-full max-w-2xl bg-white rounded-lg shadow-md p-4">
+      <div className="bg-white rounded-lg shadow-md p-4">
         <h2 className="text-lg font-semibold mb-2">Live Chat</h2>
-        <div className="h-40 overflow-y-auto border p-2 mb-2">
+        <div className="h-40 overflow-y-auto border p-2">
           {messages.map((msg, index) => (
             <div key={index} className="text-sm">
               <strong>{msg.user}:</strong> {msg.text}
             </div>
           ))}
         </div>
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type a message..."
-          className="w-full p-2 border rounded-lg"
-        />
-        <button
-          onClick={sendMessage}
-          className="mt-2 px-4 py-2 bg-green-500 text-white rounded-lg w-full"
-        >
-          Send
-        </button>
       </div>
     </div>
   );
