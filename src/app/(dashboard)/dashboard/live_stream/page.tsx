@@ -1,107 +1,124 @@
 "use client";
-import React, { useState } from "react";
-import { browseCourses } from "@/utils/browserCourses";
 
+import React, { useEffect, useRef, useState } from "react";
+import { io } from "socket.io-client";
+import { UseStartLive } from "@/hooks/useStartLive";
+
+const socket = io("http://localhost:1080");
 
 const LiveStream = () => {
+  const { mutate: startLive, isPending: isStarting } = UseStartLive();
   const [isLive, setIsLive] = useState(false);
+  const [viewers, setViewers] = useState(0);
+  const [messages, setMessages] = useState<{ user: string; text: string }[]>([]);
+  const [message, setMessage] = useState("");
+  const streamId = "course-123";
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
-  const liveCourse = browseCourses.find((course) => course.livestream.isLive);
-  const liveCourses = browseCourses.filter((course) => course.livestream.isLive);
+  useEffect(() => {
+    socket.on("update-streams", (streams) => {
+      setViewers(streams[streamId]?.viewers || 0);
+    });
+
+    socket.on("receive-message", (msg) => {
+      setMessages((prev) => [...prev, msg]);
+    });
+
+    return () => {
+      socket.off("update-streams");
+      socket.off("receive-message");
+    };
+  }, []);
+
+  const startStream = async () => {
+    try {
+      startLive(undefined, {
+        onSuccess: async () => {
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+          streamRef.current = stream;
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+          }
+          setIsLive(true);
+          socket.emit("start-stream", streamId);
+        },
+        onError: (error) => {
+          console.error("Error starting live stream:", error);
+        },
+      });
+    } catch (error) {
+      console.error("Error accessing camera/microphone:", error);
+    }
+  };
+
+  const endStream = () => {
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+    }
+    setIsLive(false);
+    socket.emit("end-stream", streamId);
+  };
+
+  const sendMessage = () => {
+    if (message.trim()) {
+      socket.emit("send-message", { user: "User", text: message });
+      setMessage("");
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="max-w-4xl w-full">
-        <h1 className="text-2xl md:text-4xl font-bold text-center mb-6 text-gray-800">
-          Live Stream
-        </h1>
+      <h1 className="text-2xl font-bold text-gray-800">Live Stream</h1>
 
-        {/* Video Section */}
-        <div className="w-full bg-black aspect-video rounded-lg overflow-hidden mb-6">
-          <div className="flex items-center justify-center w-full h-full text-white text-lg md:text-xl">
-            {isLive ? "🔴 Live Streaming" : "Video Placeholder"}
-          </div>
-        </div>
+      <div className="w-full max-w-2xl bg-black aspect-video rounded-lg overflow-hidden mb-4 flex items-center justify-center text-white">
+        <video ref={videoRef} autoPlay playsInline className="w-full h-full" hidden={!isLive} />
+        {!isLive && <span>Video Placeholder</span>}
+      </div>
 
-        {/* Chat Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Comments */}
-          <div className="md:col-span-2 bg-white rounded-lg shadow-md p-4">
-            <h2 className="text-lg font-semibold mb-4">Live Chat</h2>
-            <div className="h-60 overflow-y-auto mb-4">
-              <div className="mb-2"><span className="font-bold">User1:</span> Hello!</div>
-              <div className="mb-2"><span className="font-bold">User2:</span> Excited for this session!</div>
-              <div className="mb-2"><span className="font-bold">User3:</span> Can you explain the last part again?</div>
+      <div className="w-full max-w-2xl flex justify-between mb-4">
+        <span className="text-gray-700">👀 Viewers: {viewers}</span>
+        {isLive ? (
+          <button
+            onClick={endStream}
+            className="px-4 py-2 bg-red-500 text-white rounded-lg"
+          >
+            ⏹ End Live
+          </button>
+        ) : (
+          <button
+            onClick={startStream}
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+            disabled={isStarting}
+          >
+            ▶ Go Live
+          </button>
+        )}
+      </div>
+
+      <div className="w-full max-w-2xl bg-white rounded-lg shadow-md p-4">
+        <h2 className="text-lg font-semibold mb-2">Live Chat</h2>
+        <div className="h-40 overflow-y-auto border p-2 mb-2">
+          {messages.map((msg, index) => (
+            <div key={index} className="text-sm">
+              <strong>{msg.user}:</strong> {msg.text}
             </div>
-            <input
-              type="text"
-              placeholder="Type a message..."
-              className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-          {/* Info Section */}
-          <div className="bg-white rounded-lg shadow-md p-4">
-            <h2 className="text-lg font-semibold mb-4">Session Info</h2>
-            {liveCourse ? (
-              <ul className="text-sm text-gray-600">
-                <li><strong>Title:</strong> {liveCourse.title}</li>
-                <li><strong>Host:</strong> {liveCourse.instructor}</li>
-                <li><strong>Category:</strong> {liveCourse.category}</li>
-                <li><strong>Time:</strong> {new Date(liveCourse.livestream.schedule).toLocaleString()}</li>
-              </ul>
-            ) : (
-              <p className="text-gray-500">No active livestreams</p>
-            )}
-          </div>
+          ))}
         </div>
-
-        {/* Go Live / End Live Button */}
-        <div className="flex justify-center mt-6">
-          {isLive ? (
-            <button
-              onClick={() => setIsLive(false)}
-              className="px-6 py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-400"
-            >
-              ⏹ End Live
-            </button>
-          ) : (
-            <button
-              onClick={() => setIsLive(true)}
-              className="px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            >
-              ▶ Go Live
-            </button>
-          )}
-        </div>
-
-        {/* Live Courses List */}
-        <div className="mt-8 w-full">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">📺 Live Courses</h2>
-          {liveCourses.length > 0 ? (
-            <ul className="space-y-4">
-              {liveCourses.map((course) => (
-                <li key={course.id} className="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
-                  <div>
-                    <h3 className="font-bold">{course.title}</h3>
-                    <p className="text-sm text-gray-600">Instructor: {course.instructor}</p>
-                    <p className="text-sm text-gray-600">Category: {course.category}</p>
-                  </div>
-                  <a
-                    //href={course.livestream.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                  >
-                    🔴 Watch
-                  </a>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-gray-500">No live courses available</p>
-          )}
-        </div>
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Type a message..."
+          className="w-full p-2 border rounded-lg"
+        />
+        <button
+          onClick={sendMessage}
+          className="mt-2 px-4 py-2 bg-green-500 text-white rounded-lg w-full"
+        >
+          Send
+        </button>
       </div>
     </div>
   );
