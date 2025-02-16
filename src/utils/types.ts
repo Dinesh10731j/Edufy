@@ -46,6 +46,12 @@ export interface SignupFormInputs {
   export interface signupResponse {
     token:string
   }
+
+
+  export interface contactResponse{
+    message:string,
+    success:boolean
+  }
   
   
   
