@@ -1,17 +1,19 @@
 import { Endpoints } from "@/api/endpoints";
 const { userContact } = Endpoints;
 import axiosInstance from "@/axiosinstance/axiosInstance";
-import { useMutation } from "@tanstack/react-query";
-import { ContactFormInputs } from "@/utils/types";
-const contact = async (contactData: ContactFormInputs):Promise<ContactFormInputs> => {
+import { useMutation, UseMutationResult } from "@tanstack/react-query";
+import { ContactFormInputs, contactResponse } from "@/utils/types";
+import { useDispatch } from "react-redux";
+import { addToast } from "@/redux/slices/toastSlice";
+const contact = async (
+  contactData: ContactFormInputs
+): Promise<contactResponse> => {
   try {
-    const response = await axiosInstance.post(userContact, contactData);
-
-    if (response.status === 201) {
-      return response.data as ContactFormInputs;
-    } else {
-      throw new Error(response.data.message);
-    }
+    const response = await axiosInstance.post<contactResponse>(
+      userContact,
+      contactData
+    );
+    return response.data;
   } catch (error: unknown) {
     if (error instanceof Error) {
       throw new Error(error.message);
@@ -21,9 +23,21 @@ const contact = async (contactData: ContactFormInputs):Promise<ContactFormInputs
   }
 };
 
-export const UseContact = () => {
-  return useMutation({
+export const UseContact = (): UseMutationResult<
+  contactResponse,
+  Error,
+  ContactFormInputs
+> => {
+  const dispatch = useDispatch();
+  return useMutation<contactResponse, Error, ContactFormInputs>({
     mutationKey: ["contact"],
     mutationFn: contact,
+    onSuccess: (data) => {
+      console.log("This is the response from the server",data);
+      dispatch(addToast({ type: "success", message: data.message }));
+    },
+    onError: (error) => {
+      dispatch(addToast({ type: "error", message: error.message }));
+    },
   });
 };
