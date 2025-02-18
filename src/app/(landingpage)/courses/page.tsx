@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import { ShoppingCart, Video, BookOpen, PlusCircle } from 'lucide-react'; // Lucide icons
+import { ShoppingCart, Video, BookOpen, PlusCircle } from 'lucide-react';
 import Image from 'next/image';
 import courseImage from "@/assets/images/course.jpg";
 import Footer from '@/components/footer';
 import Header from '@/components/Header';
+import Link from 'next/link';
 const CoursePage = () => {
   return (
     <>
@@ -66,6 +67,8 @@ const CoursePage = () => {
                     <ShoppingCart className="w-5 h-5" />
                     Buy Now
                   </button>
+
+                  <button><Link href={`/join_live/50`}>Watch Live</Link></button>
                 </div>
               </div>
             </div>
