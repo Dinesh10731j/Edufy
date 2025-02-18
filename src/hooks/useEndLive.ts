@@ -4,7 +4,7 @@ import { Endpoints } from "@/api/endpoints";
 const { endLive } = Endpoints;
 const endLiveStream = async () => {
   try {
-    const response = await axiosInstance.post(endLive);
+    const response = await axiosInstance.patch(endLive);
 
     return response.data;
   } catch (error: unknown) {
