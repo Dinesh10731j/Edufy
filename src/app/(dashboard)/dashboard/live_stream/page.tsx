@@ -8,7 +8,7 @@ import { UseEndLiveStream } from "@/hooks/useEndLive";
 const socket = io("http://localhost:1080");
 
 const LiveStream = () => {
-  const { mutate: startLive, isPending: isStarting } = UseStartLive();
+  const { mutate: startLive, isPending: isStarting} = UseStartLive();
   const { mutate: endLive, isPending: isEnding } = UseEndLiveStream();
   const [isLive, setIsLive] = useState(false);
   const [viewers, setViewers] = useState(0);
@@ -39,19 +39,41 @@ const LiveStream = () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
       streamRef.current = stream;
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-      }
-      setIsLive(true);
-      socket.emit("start-stream", streamId);
-      startLive(undefined, {
+      if (videoRef.current) videoRef.current.srcObject = stream;
+  
+      const peerConnection = new RTCPeerConnection();
+      
+      stream.getTracks().forEach((track) => peerConnection.addTrack(track, stream));
+  
+      peerConnection.onicecandidate = (event) => {
+        if (event.candidate) {
+          socket.emit("ice-candidate", event.candidate);
+        }
+      };
+  
+      const offer = await peerConnection.createOffer();
+      await peerConnection.setLocalDescription(offer);
+  
+      socket.emit("offer", offer);
+  
+      socket.on("answer", async (answer) => {
+        await peerConnection.setRemoteDescription(new RTCSessionDescription(answer));
+      });
+  
+      socket.on("ice-candidate", (candidate) => {
+        peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+      });
+      startLive(undefined,{
         onSuccess: () => console.log("Live stream started successfully"),
         onError: (error) => console.error("Error starting live stream:", error),
       });
+  
+      setIsLive(true);
     } catch (error) {
-      console.error("Error accessing camera/microphone:", error);
+      console.error("Error starting stream:", error);
     }
   };
+  
 
   const handleEndStream = () => {
     // Stop the media tracks to end the stream locally
