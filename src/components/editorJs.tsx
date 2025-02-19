@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import EditorJS,{ToolConstructable} from "@editorjs/editorjs";
+import React, { useEffect, useRef, useState } from "react";
+import EditorJS, { ToolConstructable } from "@editorjs/editorjs";
 import Paragraph from "@editorjs/paragraph";
 import ImageTool from "@editorjs/image";
 import CodeTool from "@editorjs/code";
@@ -14,6 +14,8 @@ import EmbedTool from "@editorjs/embed";
 import InlineCodeTool from "@editorjs/inline-code";
 import QuoteTool from "@editorjs/quote";
 import RawTool from "@editorjs/raw";
+import { useDispatch } from "react-redux";
+import { addToast } from "@/redux/slices/toastSlice";
 
 interface EditorjsProps {
   onInit: (editor: EditorJS) => void;
@@ -21,6 +23,9 @@ interface EditorjsProps {
 
 const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
   const editorJsRef = useRef<EditorJS | null>(null);
+  const dispatch = useDispatch();
+  const [title, setTitle] = useState("");
+  const [hashtags, setHashtags] = useState("");
 
   useEffect(() => {
     if (!editorJsRef.current) {
@@ -40,62 +45,107 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
             class: ImageTool,
             config: {
               endpoints: {
-                byFile: "file-upload-endpoint", 
-                byUrl: "url-fetch-endpoint", 
+                byFile: "file-upload-endpoint",
+                byUrl: "url-fetch-endpoint",
               },
             },
           },
-          code: {
-            class: CodeTool,
-          
-          },
+          code: { class: CodeTool },
           header: {
             class: Header as unknown as ToolConstructable,
-            config: {
-              levels: [1,2, 3, 4,5,6],
-              defaultLevel: 2,
-            },
+            config: { levels: [1, 2, 3, 4, 5, 6], defaultLevel: 2 },
           },
-          checklist: {
-            class: ChecklistTool,
-          },
-          list: {
-            class: ListTool as unknown as ToolConstructable,
-          },
-          table: {
-            class: TableTool as unknown as ToolConstructable,
-          },
-          warning: {
-            class: WarningTool,
-          },
-          embed: {
-            class: EmbedTool,
-          },
-          inlineCode: {
-            class: InlineCodeTool,
-          },
-          quote: {
-            class: QuoteTool,
-          },
-          raw: {
-            class: RawTool,
-          },
+          checklist: { class: ChecklistTool },
+          list: { class: ListTool as unknown as ToolConstructable },
+          table: { class: TableTool as unknown as ToolConstructable },
+          warning: { class: WarningTool },
+          embed: { class: EmbedTool },
+          inlineCode: { class: InlineCodeTool },
+          quote: { class: QuoteTool },
+          raw: { class: RawTool },
         },
       });
-
       editorJsRef.current = editor;
       onInit(editor);
     }
-
     return () => {
-      if (editorJsRef.current && typeof editorJsRef.current.destroy === "function") {
+      if (
+        editorJsRef.current &&
+        typeof editorJsRef.current.destroy === "function"
+      ) {
         editorJsRef.current.destroy();
         editorJsRef.current = null;
       }
     };
   }, [onInit]);
 
-  return <div id="editorjs" className="w-full min-h-screen shadow-md overflow-hidden"></div>;
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const handleHashtagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHashtags(e.target.value);
+  };
+
+  const handleSubmit = async () => {
+    if (!title.trim() || !hashtags.trim()) {
+      dispatch(
+        addToast({
+          type: "error",
+          message: "Title and hashtags cannot be empty.",
+        })
+      );
+      return;
+    }
+
+    if (editorJsRef.current) {
+      try {
+        const savedData = await editorJsRef.current.save();
+        if (!savedData.blocks.length) {
+          dispatch(
+            addToast({
+              type: "error",
+              message: "Editor content cannot be empty.",
+            })
+          );
+
+          return;
+        }
+        console.log("Editor Data:", {...savedData,title,hashtags});
+      } catch (error) {
+        console.error("Error saving editor data:", error);
+      }
+    }
+  };
+
+  return (
+    <div className="w-full p-4">
+      <input
+        type="text"
+        placeholder="Enter the title of the course"
+        className="w-full p-2 border-2 border-gray-300 rounded-md mb-4"
+        value={title}
+        onChange={handleTitleChange}
+      />
+      <input
+        type="text"
+        placeholder="Enter hashtags (e.g. #webdev #react)"
+        className="w-full p-2 border-2 border-gray-300 rounded-md mb-4"
+        value={hashtags}
+        onChange={handleHashtagChange}
+      />
+      <div
+        id="editorjs"
+        className="w-full min-h-screen shadow-md overflow-hidden"
+      ></div>
+      <button
+        onClick={handleSubmit}
+        className="mt-4 w-full px-4 py-2 bg-blue-500 text-white rounded"
+      >
+        Create Course
+      </button>
+    </div>
+  );
 };
 
 export default EditorJs;
