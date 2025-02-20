@@ -16,6 +16,8 @@ import QuoteTool from "@editorjs/quote";
 import RawTool from "@editorjs/raw";
 import { useDispatch } from "react-redux";
 import { addToast } from "@/redux/slices/toastSlice";
+import { UseCreateCourse } from "@/hooks/useCreateCourse";
+import { CourseDetailsType } from "@/utils/types";
 
 interface EditorjsProps {
   onInit: (editor: EditorJS) => void;
@@ -26,6 +28,7 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const [hashtags, setHashtags] = useState("");
+  const course = UseCreateCourse();
 
   useEffect(() => {
     if (!editorJsRef.current) {
@@ -111,7 +114,20 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
 
           return;
         }
-        console.log("Editor Data:", {...savedData,title,hashtags});
+        const courseData: CourseDetailsType = {
+          title,
+          hashtags,
+          blocks: savedData.blocks.map(block => ({
+            id: block.id || "",
+            type: block.type,
+            data: { text: block.data.text || "" },
+            version: savedData.version || "",
+            time: savedData.time || Date.now(),
+          })),
+        };
+     
+        
+        course.mutate(courseData);
       } catch (error) {
         console.error("Error saving editor data:", error);
       }

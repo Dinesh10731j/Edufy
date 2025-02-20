@@ -4,5 +4,6 @@ export const Endpoints ={
     userContact:'/api/v1/user/contact',
     startLive:'/api/v1/livestream/start',
     endLive :'/api/v1/livestream/end',
-    joinLive:'/api/v1/livestream/join'
+    joinLive:'/api/v1/livestream/join',
+    createCourse:'/api/v1/course/create',
 }
