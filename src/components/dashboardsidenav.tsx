@@ -8,6 +8,7 @@ import {
   Video,
   Menu,
   X,
+  HomeIcon
 } from "lucide-react";
 
 interface DashboardSidenavProps {
@@ -23,7 +24,7 @@ const DashboardSidenav:React.FC<DashboardSidenavProps> = ({children}) => {
   };
 
   return (
-    <div className="flex">
+    <div className="flex ">
       {/* Sidebar */}
       <div
         className={`${
@@ -43,6 +44,17 @@ const DashboardSidenav:React.FC<DashboardSidenavProps> = ({children}) => {
 
         {/* Sidebar Links */}
         <nav className="mt-5 space-y-4">
+<Link href={'/dashboard'}
+  className={`flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition rounded-md
+    ${pathname === '/dashboard'?'bg-gray-700':''}
+    `}
+>
+  <HomeIcon/>
+
+  {isOpen && <span>Dashboard</span>}
+
+</Link>
+
           <Link
             href="/dashboard/browse_courses"
             className={`flex items-center space-x-3 px-4 py-2 hover:bg-gray-700 transition rounded-md
