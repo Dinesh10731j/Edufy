@@ -1,4 +1,5 @@
 # Eudify
+demo:https://eduufy.netlify.app/
 
 Eudify is an all-in-one online platform where users can:
 
