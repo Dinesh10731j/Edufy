@@ -57,7 +57,7 @@ export const UseRegister = (): UseMutationResult<
     onError: (error: Error) => {
 
       console.error("Error during registration:", error.message);
-      dispatch(addToast({ message: "Login Failed!", type: "error" }));
+      dispatch(addToast({ message: "Signup Failed!", type: "error" }));
     },
   });
 };
