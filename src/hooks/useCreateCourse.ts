@@ -1,11 +1,11 @@
-import { CourseDetailsType } from "@/utils/types";
+import {EditorContent} from "@/utils/types";
 import { Endpoints } from "@/api/endpoints";
 const { createCourse } = Endpoints;
 import axiosInstance from "@/axiosinstance/axiosInstance";
 import { useMutation } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { addToast } from "@/redux/slices/toastSlice";
-const createcourse = async (course: CourseDetailsType) => {
+const createcourse = async (course: EditorContent) => {
   try {
     const response = await axiosInstance.post(createCourse, course);
 
