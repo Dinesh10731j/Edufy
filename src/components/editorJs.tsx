@@ -17,7 +17,7 @@ import RawTool from "@editorjs/raw";
 import { useDispatch } from "react-redux";
 import { addToast } from "@/redux/slices/toastSlice";
 import { UseCreateCourse } from "@/hooks/useCreateCourse";
-import { CourseDetailsType } from "@/utils/types";
+import {EditorContent,EditorBlock} from "@/utils/types";
 
 interface EditorjsProps {
   onInit: (editor: EditorJS) => void;
@@ -114,17 +114,20 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
 
           return;
         }
-        const courseData: CourseDetailsType = {
+        const courseData: EditorContent = {
           title,
           hashtags,
-          blocks: savedData.blocks.map(block => ({
+          time: savedData.time || Date.now(),
+          version: savedData.version || "",
+          blocks: savedData.blocks.map((block) => ({
             id: block.id || "",
-            type: block.type,
-            data: { text: block.data.text || "" },
-            version: savedData.version || "",
-            time: savedData.time || Date.now(),
+            type: block.type as EditorBlock["type"],
+            data: block.data,
           })),
         };
+
+        console.log("This is the editor js data",courseData);
+        
      
         
         course.mutate(courseData);
