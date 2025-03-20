@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { addToast } from "@/redux/slices/toastSlice";
 import { UseCreateCourse } from "@/hooks/useCreateCourse";
 import {EditorContent,EditorBlock} from "@/utils/types";
+import { UseUploadImage } from "@/hooks/useUploadImage";
 
 interface EditorjsProps {
   onInit: (editor: EditorJS) => void;
@@ -29,6 +30,7 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
   const [title, setTitle] = useState("");
   const [hashtags, setHashtags] = useState("");
   const course = UseCreateCourse();
+  const uploadMutation = UseUploadImage()
 
   useEffect(() => {
     if (!editorJsRef.current) {
@@ -45,12 +47,32 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
             },
           },
           image: {
-            class: ImageTool,
+            class: ImageTool as ToolConstructable,
             config: {
-              endpoints: {
-                byFile: "file-upload-endpoint",
-                byUrl: "url-fetch-endpoint",
+             uploader:{
+              async uploadByFile(file: File) {
+                try{
+                  const formData = new FormData();
+                  formData.append('image', file);
+                  const url = uploadMutation.mutateAsync(formData);
+                  return{
+                    success:1,
+                    file:{
+                      url
+                    }
+                   
+                  }
+
+                }catch(error:unknown){
+                  if(error instanceof Error){
+                    throw new Error(error.message);
+                  }else{
+                    console.error("Image upload failed:", error);
+                    return { success: 0, message: "Image upload failed. Try again." };
+                  }
+                }
               },
+             }
             },
           },
           code: { class: CodeTool },
@@ -80,7 +102,7 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
         editorJsRef.current = null;
       }
     };
-  }, [onInit]);
+  }, [onInit, uploadMutation]);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -155,7 +177,7 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
       />
       <div
         id="editorjs"
-        className="w-full min-h-screen shadow-md overflow-hidden"
+        className="w-full min-h-screen shadow-md p-3 overflow-hidden"
       ></div>
       <button
         onClick={handleSubmit}
