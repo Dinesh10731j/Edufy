@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
-  baseURL: "https://edufy-api.onrender.com",
+  baseURL: "http://localhost:1080",//"https://edufy-api.onrender.com",
   headers: {
     "Content-Type": "application/json",
   },

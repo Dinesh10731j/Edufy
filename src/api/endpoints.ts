@@ -6,4 +6,5 @@ export const Endpoints ={
     endLive :'/api/v1/livestream/end',
     joinLive:'/api/v1/livestream/join',
     createCourse:'/api/v1/course/create',
+    uploadImages:'/api/v1/course/images/upload',
 }
