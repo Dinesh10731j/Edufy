@@ -24,7 +24,7 @@ interface EditorjsProps {
   onInit: (editor: EditorJS) => void;
 }
 
-const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
+const EditorJs: React.FC<EditorjsProps> = ({onInit}) => {
   const editorJsRef = useRef<EditorJS | null>(null);
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
@@ -54,7 +54,7 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
                 try{
                   const formData = new FormData();
                   formData.append('image', file);
-                  const url = uploadMutation.mutateAsync(formData);
+                  const url = await uploadMutation.mutateAsync(formData);
                   return{
                     success:1,
                     file:{
@@ -102,7 +102,7 @@ const EditorJs: React.FC<EditorjsProps> = ({ onInit }) => {
         editorJsRef.current = null;
       }
     };
-  }, [onInit, uploadMutation]);
+  }, []);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
