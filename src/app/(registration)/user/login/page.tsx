@@ -7,6 +7,7 @@ import { UseLogin } from "@/hooks/useLogin";
 import Image from "next/image";
 import LoginImage from "@/assets/images/login.jpg";
 import Link from "next/link";
+import Loader from "@/components/loader";
 const LoginPage = () => {
   const {
     register,
@@ -99,7 +100,12 @@ const LoginPage = () => {
                 type="submit"
                 className="w-full bg-[#FB8C00] text-white py-2 px-4 rounded-md hover:bg-[#FF9800] transition"
               >
-                Login
+                {loginMutation.isPending ? (
+                 <Loader/>
+) : (
+  "Login"
+)}
+
               </button>
               <p className="text-center mt-4">
                 Don&apos;t have an account?{" "}

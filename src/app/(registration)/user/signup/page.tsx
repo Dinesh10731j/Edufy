@@ -7,6 +7,7 @@ import Image from "next/image";
 import { SignupFormInputs } from "@/utils/types";
 import { UseRegister } from "@/hooks/useSignup";
 import Link from "next/link";
+import Loader from "@/components/loader";
 
 const SignupPage = () => {
   const {
@@ -140,7 +141,7 @@ const registerMutation = UseRegister();
                 type="submit"
                 className="w-full bg-[#FB8C00] text-white py-2 px-4 rounded-md hover:bg-[#FF9800] transition"
               >
-                Sign Up
+               {registerMutation.isPending ? (<Loader/>):("Sign Up")} 
               </button>
 
               <p className="py-2 px-1 text-center">Allready have an account? <Link href="/user/login" className="text-[#FB8C00]">Login</Link></p>
